@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Archives: 2021 | Hexo</title>
+  <title>config-watcher | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/archives/2021/index.html">
+  <meta name="description" content="一个基于分布式系统的etcd监听者 依赖 etcd v3  功能 监听不丢失： 利用etcd revision概念，即使网络不稳定，导致监听器重连，也不会丢失订阅消息   封装了etcd watch模块，用户只需关心： 获取、设置、更改监听对象时，回调函数触发的相关业务逻辑   带有初始值设置功能： 分布式系统环境下，利用etcd事务操作，多个节点只会有一个节点执行初始化，无需担忧重复执行，以及开">
+<meta property="og:type" content="article">
+<meta property="og:title" content="config-watcher">
+<meta property="og:url" content="http://example.com/2021/07/05/config-watcher/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="一个基于分布式系统的etcd监听者 依赖 etcd v3  功能 监听不丢失： 利用etcd revision概念，即使网络不稳定，导致监听器重连，也不会丢失订阅消息   封装了etcd watch模块，用户只需关心： 获取、设置、更改监听对象时，回调函数触发的相关业务逻辑   带有初始值设置功能： 分布式系统环境下，利用etcd事务操作，多个节点只会有一个节点执行初始化，无需担忧重复执行，以及开">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-07-05T01:15:59.269Z">
+<meta property="article:modified_time" content="2021-07-05T01:15:59.269Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -138,103 +142,173 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-config-watcher" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      config-watcher
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/05/config-watcher/" class="archive-article-date">
+
+        
+        <a href="/2021/07/05/config-watcher/" class="archive-article-date">
   	<time datetime="2021-07-05T01:15:59.269Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-05</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/05/config-watcher/">config-watcher</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a target="_blank" rel="noopener" href="https://github.com/jinshi1993/config-watcher">一个基于分布式系统的etcd监听者</a></p>
+<h1 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h1><ul>
+<li>etcd v3</li>
+</ul>
+<h1 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h1><ul>
+<li>监听不丢失：<ul>
+<li>利用etcd revision概念，即使网络不稳定，导致监听器重连，也不会丢失订阅消息</li>
+</ul>
+</li>
+<li>封装了etcd watch模块，用户只需关心：<ul>
+<li>获取、设置、更改监听对象时，回调函数触发的相关业务逻辑</li>
+</ul>
+</li>
+<li>带有初始值设置功能：<ul>
+<li>分布式系统环境下，利用etcd事务操作，多个节点只会有一个节点执行初始化，无需担忧重复执行，以及开发额外的代码去做初始化操作</li>
+</ul>
+</li>
+</ul>
+<h1 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> put callback（初始化成功时触发）</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> etcdctl get /the/key/you/want/to/watch</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./etcd_watcher</span> </span><br><span class="line">put callback: /the/key/you/want/to/watch=/the/value/you/want/to/init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> etcdctl get /the/key/you/want/to/watch</span></span><br><span class="line">/the/key/you/want/to/watch</span><br><span class="line">/the/value/you/want/to/init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> get callback（初始化失败时触发，即已经设置过了）</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> etcdctl get /the/key/you/want/to/watch</span></span><br><span class="line">/the/key/you/want/to/watch</span><br><span class="line">/the/value/you/want/to/init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./etcd_watcher</span> </span><br><span class="line">get callback: /the/key/you/want/to/watch=/the/value/you/want/to/init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> change callback（监听对象变化时触发）</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> etcdctl put /the/key/you/want/to/watch 123</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./etcd_watcher</span> </span><br><span class="line">...</span><br><span class="line">change callback: /the/key/you/want/to/watch=123</span><br></pre></td></tr></table></figure>
+      
 
-        <div class="article-info info-on-right">
-          
-          
-
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/07/05/config-watcher/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/25/python-logger/" class="archive-article-date">
-  	<time datetime="2021-05-24T18:06:47.761Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-25</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2021/05/25/python-logger/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python-logger</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/25/python-logger/">python-logger</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/05/22/hello-world/" class="archive-article-date">
-  	<time datetime="2021-05-22T04:09:54.968Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-22</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/05/22/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -257,8 +331,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
