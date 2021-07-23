@@ -55,7 +55,7 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+				<li><a href="/tags">标签</a></li>
 	        
 			</ul>
 		</nav>
@@ -123,7 +123,7 @@
 				
 					<li style="width: 50%"><a href="/">主页</a></li>
 		        
-					<li style="width: 50%"><a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a></li>
+					<li style="width: 50%"><a href="/tags">标签</a></li>
 		        
 				</ul>
 			</nav>
@@ -147,13 +147,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/07/05/config-watcher/">config-watcher</a>
+      <a class="article-title" href="/2021/07/23/config-watcher/">config-watcher</a>
     </h1>
   
 
         
-        <a href="/2021/07/05/config-watcher/" class="archive-article-date">
-  	<time datetime="2021-07-05T01:15:59.269Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-05</time>
+        <a href="/2021/07/23/config-watcher/" class="archive-article-date">
+  	<time datetime="2021-07-23T02:01:26.204Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-23</time>
 </a>
         
       </header>
@@ -179,6 +179,7 @@
 </li>
 </ul>
 <h1 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> put callback（初始化成功时触发）</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> etcdctl get /the/key/you/want/to/watch</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./etcd_watcher</span> </span><br><span class="line">put callback: /the/key/you/want/to/watch=/the/value/you/want/to/init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> etcdctl get /the/key/you/want/to/watch</span></span><br><span class="line">/the/key/you/want/to/watch</span><br><span class="line">/the/value/you/want/to/init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> get callback（初始化失败时触发，即已经设置过了）</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> etcdctl get /the/key/you/want/to/watch</span></span><br><span class="line">/the/key/you/want/to/watch</span><br><span class="line">/the/value/you/want/to/init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./etcd_watcher</span> </span><br><span class="line">get callback: /the/key/you/want/to/watch=/the/value/you/want/to/init</span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> change callback（监听对象变化时触发）</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> etcdctl put /the/key/you/want/to/watch 123</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./etcd_watcher</span> </span><br><span class="line">...</span><br><span class="line">change callback: /the/key/you/want/to/watch=123</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -186,11 +187,26 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">golang</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">etcd</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/07/05/config-watcher/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/07/23/config-watcher/">展开全文 >></a>
         </p>
       
 
@@ -227,13 +243,13 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2021/05/25/python-logger/">python-logger</a>
+      <a class="article-title" href="/2021/07/23/python-logger/">python-logger</a>
     </h1>
   
 
         
-        <a href="/2021/05/25/python-logger/" class="archive-article-date">
-  	<time datetime="2021-05-24T18:06:47.761Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-25</time>
+        <a href="/2021/07/23/python-logger/" class="archive-article-date">
+  	<time datetime="2021-07-23T02:01:16.594Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-23</time>
 </a>
         
       </header>
@@ -247,6 +263,7 @@
 <h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> logger <span class="keyword">import</span> logger</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_log</span>():</span></span><br><span class="line">    log = logger.get_logger()</span><br><span class="line">    log.debug(<span class="string">&quot;this is debug log&quot;</span>)</span><br><span class="line">    log.warning(<span class="string">&quot;this is warning log&quot;</span>)</span><br><span class="line">    log.info(<span class="string">&quot;this is info log&quot;</span>)</span><br><span class="line">    log.error(<span class="string">&quot;this is error log&quot;</span>)</span><br><span class="line">    log.critical(<span class="string">&quot;this is critical log&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span>():</span></span><br><span class="line">    test_log()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
 
 <h1 id="预览"><a href="#预览" class="headerlink" title="预览"></a>预览</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">2021-05-25 01:50:18,798 [DEBUG   ] 10340 :140183332554560 main.py         6    | this is debug log</span><br><span class="line">2021-05-25 01:50:18,798 [WARNING ] 10340 :140183332554560 main.py         7    | this is warning log</span><br><span class="line">2021-05-25 01:50:18,798 [INFO    ] 10340 :140183332554560 main.py         8    | this is info log</span><br><span class="line">2021-05-25 01:50:18,799 [ERROR   ] 10340 :140183332554560 main.py         9    | this is error log</span><br><span class="line">2021-05-25 01:50:18,799 [CRITICAL] 10340 :140183332554560 main.py         10   | this is critical log</span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -254,11 +271,26 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">log</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2021/05/25/python-logger/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/07/23/python-logger/">展开全文 >></a>
         </p>
       
 
@@ -454,6 +486,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">golang</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">etcd</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">log</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
